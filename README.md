@@ -1,2 +1,4 @@
 # calibre-library-server
-View and download books from multiple Calibre libraries
+Serve books from your Calibre libraries
+
+Project with a REST API and frontend, made in NodeJS and HTML
