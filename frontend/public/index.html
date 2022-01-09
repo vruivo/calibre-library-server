@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="eng">
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Calibre Server</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <!-- <link rel='stylesheet' type='text/css' media='screen' href='main.css'> -->
+    <script src='/js/kobo.js' type="text/javascript"></script>
+</head>
+<body>
+    Library
+    <div>
+        <select name="library" id="library">
+            <!-- <option value="Calibre Library">Calibre Library</option>
+            <option value="demo-library">demo-library</option> -->
+        </select>
+        <select name="type" id="type">
+            <option value="book">Book</option>
+            <option value="tag" disabled="">Tag</option>
+        </select>
+        <input id="searchbox" type="text" placeholder="Search.." name="searchbox">
+        <button onclick="search()">Search</button>
+    </div>
+
+    <div id="root">
+    </div>
+
+    <script>
+        window.onload = function() {
+            // get available libraries
+            makeRequest('api/libraries', populateAvailableLibraries);
+        }
+    </script>
+</body>
+</html>

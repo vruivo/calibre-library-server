@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="eng">
+<head>
+  <meta charset='utf-8'>
+  <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+  <title>Calibre Server</title>
+  <meta name='viewport' content='width=device-width, initial-scale=1'>
+  <!-- <link rel='stylesheet' type='text/css' media='screen' href='main.css'> -->
+  <!-- <script src='/js/kobo.js' type="text/javascript"></script> -->
+</head>
+<body>
+  <div id="content"></div>
+  
+  <script>
+    window.onload = function() {
+      const url_path = window.location.pathname;
+      const book_id = url_path.substring(url_path.lastIndexOf('/') + 1, url_path.length);
+      window.book_library = url_path.substring(1, url_path.indexOf('/', 1));
+      console.log('book library ==', window.book_library);
+      // makeRequest(`/api/${window.book_library}/books/${book_id}`, appendBookInfo);
+      makeRequest('/api/' + window.book_library + '/books/' + book_id, appendBookInfo);
+    }
+    
+    
+    function makeRequest(url, callback) {
+      const httpRequest = new XMLHttpRequest();
+      
+      function responseParser() {
+        if (httpRequest.readyState === XMLHttpRequest.DONE) {
+          if (httpRequest.status === 200) {
+            var response = JSON.parse(httpRequest.responseText);
+            callback(response);
+          } /*else {
+            alert('There was a problem with the request.');
+          }*/
+        }
+      }
+      
+      httpRequest.onreadystatechange = responseParser;
+      httpRequest.open('GET', url);
+      httpRequest.send();
+    }
+
+
+    function appendBookInfo(book) {
+      console.log('appendBookInfo()', book);
+      
+      const bookEl = document.createElement('div');
+      bookEl.id = 'book';
+
+      const titleEl = document.createElement('div');
+      titleEl.innerText = 'Title: ' + book.title;
+      bookEl.appendChild(titleEl);
+
+      const descriptionEl = document.createElement('div');
+      descriptionEl.innerText = 'Description: ' + book.description;
+      bookEl.appendChild(descriptionEl);
+
+      const authorsEl = document.createElement('div');
+      authorsEl.innerText = 'Authors: ' + book.authors;
+      bookEl.appendChild(authorsEl);
+
+      const tagsEl = document.createElement('div');
+      tagsEl.innerText = 'Tags: ' + book.tags;
+      bookEl.appendChild(tagsEl);
+
+      const formatsEl = document.createElement('div');
+      formatsEl.innerText = 'Formats: ' + book.formats;
+      bookEl.appendChild(formatsEl);
+
+      book.formats.forEach(function a(file_format) {
+        // const fileButtonEl = document.createElement('button');
+        // fileButtonEl.innerText = file_format;
+        // fileButtonEl.onclick = function () {downloadBook(file_format);}
+        const fileButtonEl = document.createElement('a');
+        fileButtonEl.innerText = file_format;
+        // fileButtonEl.href = `/files/${window.book_library}/?path=${book.path}&filename=${book.filenames[0]}&format=${file_format}`;
+        fileButtonEl.href = '/files/' + window.book_library + '/?path=' + book.path + '&filename=' + book.filenames[0] + '&format=' + file_format;
+        bookEl.appendChild(fileButtonEl);
+      })
+      bookEl.appendChild(document.createElement('br'))
+
+      const coverEl = document.createElement('img');
+      // coverEl.src = `/covers/${window.book_library}/${book.path}`;
+      coverEl.src = '/covers/' + window.book_library + '/' + book.path;
+      bookEl.appendChild(coverEl);
+
+      document.getElementById('content').appendChild(bookEl);
+    }
+
+  </script>
+</body>
+</html>
