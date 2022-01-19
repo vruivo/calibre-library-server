@@ -1,10 +1,5 @@
 /*
-  JS file written with a old Javascript version to support older/limited devices.
-
-  According with some tests the Javascript version present in Kobo devices web browser is really old
-  (no support for fetch, Array.forEach, string template literals, ... )
-
-  Hence this file written in an 'old-fashion'
+  JS file written in ES5 to mantain compatibility with older devices.
 */
 
 document.write("Load successfull!");

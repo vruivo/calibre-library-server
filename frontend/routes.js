@@ -5,6 +5,7 @@ const router = express.Router();
 
 router.use('/page', express.static(path.join(__dirname, '/public/index.html')));
 router.use('/kobo', express.static(path.join(__dirname, '/public/index.html')));
+router.use('/css', express.static(path.join(__dirname, '/public/css/')));
 router.use('/js', express.static(path.join(__dirname, '/public/js/')));
 
 router.use('/:library/book/:id$', function (req, res) {

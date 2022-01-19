@@ -71,14 +71,32 @@
         majorVersion = parseInt(navigator.appVersion,10);
       }
 
+      var OSName="Unknown OS";
+      if (navigator.appVersion.indexOf("Win")!=-1) OSName="Windows";
+      if (navigator.appVersion.indexOf("Mac")!=-1) OSName="MacOS";
+      if (navigator.appVersion.indexOf("X11")!=-1) OSName="UNIX";
+      if (navigator.appVersion.indexOf("Linux")!=-1) OSName="Linux";
+
       document.getElementById('testpage-root').innerText = ''
+      +'OS name  = '+OSName+'\n'
       +'Browser name  = '+browserName+'\n'
       +'Full version  = '+fullVersion+'\n'
       +'Major version = '+majorVersion+'\n'
       +'navigator.appName = '+navigator.appName+'\n'
       +'navigator.userAgent = '+navigator.userAgent+'\n\n'
+      +'Window outer size = ' + window.outerWidth + 'x' + window.outerHeight +'\n'
+      +'Window inner size = ' + window.innerWidth + 'x' + window.innerHeight +'\n'
+      +'Screen total resolution = ' + screen.width + 'x' + screen.height +'\n'
+      +'Screen available resolution = ' + screen.availWidth + 'x' + screen.availHeight +'\n'
+      +'Device Pixel Ratio = ' + window.devicePixelRatio +'\n'
+      +'Device Screen Resolution = ' + (screen.width*window.devicePixelRatio) + 'x' + (screen.height*window.devicePixelRatio) +'\n\n'
     }
 
+    function writeToPage(text) {
+      var tmpEl = document.createElement('div');
+      tmpEl.innerText = text;
+      document.getElementById('testpage-root').appendChild(tmpEl);
+    }
 
     function writeFeatureSupportResult(feature, supported) {
       var tmpEl = document.createElement('div');
@@ -93,14 +111,14 @@
     window.onload = function() {
       getBrowserInfo();
 
-      // ES5
+      writeToPage('\n---- JS feature support ----');
+
+      writeToPage('\n- ES5 -');
       writeFeatureSupportResult('Array.prototype.forEach()', !!Array.prototype.forEach);
       writeFeatureSupportResult('Array.prototype.map()', !!Array.prototype.map);
       writeFeatureSupportResult('String.prototype.trim()', !!String.prototype.trim);
 
-      writeFeatureSupportResult('fetch()', !!window.fetch);
-
-      // ES6
+      writeToPage('\n- ES6 -');
       writeFeatureSupportResult('Promise', !!window.Promise);
 
       try {
@@ -123,6 +141,9 @@
       } catch (e) {
         writeFeatureSupportResult('Template literals', false);
       }
+
+      writeToPage('\n');
+      writeFeatureSupportResult('fetch()', !!window.fetch);
 
     }
   </script>
