@@ -1,0 +1,22 @@
+.book-details {
+  margin-bottom: 1em;
+}
+
+.cover {
+  width: 27vw;
+  margin: 0rem 1rem 1rem 1rem;
+  float: left;
+}
+
+#content {
+  width: 80vw;
+  margin: auto;
+}
+
+#box {
+  margin-bottom: 5rem;
+}
+
+#details {
+  margin-top: 2rem;
+}

@@ -1,0 +1,14 @@
+[Unit]
+Description=Calibre Library Server
+After=multi-user.target
+
+[Service]
+Type=simple
+User=${USER}
+WorkingDirectory=${DIR}
+ExecStart=npm start "/mnt/usb128/calibre-books/Calibre Library/"
+Restart=on-failure
+RestartSec=5s
+
+[Install]
+WantedBy=multi-user.target

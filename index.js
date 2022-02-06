@@ -101,10 +101,6 @@ app.get('/files/:library/', function (req, res) {
   const filename = req.query.filename;
   const format = req.query.format.toLowerCase();
 
-  if (format !== 'epub' && format !== 'kepub') {
-    return res.sendStatus(404);
-  }
-
   const ebook_file = path.join(filepath, filename) + `.${format}`;
 
   const final_filename = format === 'kepub' ? `${filename}.${format}.epub` : `${filename}.${format}`;

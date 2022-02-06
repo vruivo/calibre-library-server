@@ -1,0 +1,13 @@
+.book-details {
+  margin-bottom: 1em;
+}
+
+.cover {
+  width: 30vw;
+  margin: 0rem 1rem 1rem 1rem;
+  float: left;
+}
+
+#details {
+  display: inline-block;
+}

@@ -1,0 +1,17 @@
+#title {
+  margin-bottom: 10px;
+}
+
+#authors {
+  margin-bottom: 2rem;
+}
+
+.book-details {
+  margin-bottom: 1em;
+}
+
+.cover {
+  width: 40vw;
+  margin: auto;
+  display: block;
+}
