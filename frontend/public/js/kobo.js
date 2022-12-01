@@ -8,12 +8,22 @@ function search() {
   document.querySelector('#root').innerHTML='search';
   const searchtype = document.querySelector('#type').value;
   const selected_library = document.querySelector('#library').value;
+  const search_box_value = document.querySelector('#searchbox').value;
   if (searchtype === 'book') {
-    getBooks(selected_library, document.querySelector('#searchbox').value);
+    if (search_box_value == '') {
+      getAllBooks(selected_library);
+    }
+    else
+      getBooks(selected_library, search_box_value);
   }
   if (searchtype === 'tag') {
-    getTags(selected_library, document.querySelector('#searchbox').value);
+    getTags(selected_library, search_box_value);
   }
+}
+
+function getAllBooks(selected_library) {
+  document.querySelector('#root').innerHTML='get all books';
+  makeRequest('api/'+ selected_library +'/books', appendBookSearchResults.bind(this, selected_library))
 }
 
 function getBooks(selected_library, book_title) {
@@ -27,8 +37,9 @@ function getBooks(selected_library, book_title) {
 }
 
 function appendBookSearchResults(library, books) {
-  document.querySelector('#root').innerHTML='append results';
-  for (var x=0; x<books.length; x++) {
+  const books_nr = books.length;
+  document.querySelector('#root').innerHTML='Found ' + books_nr + ' results!';
+  for (var x=0; x<books_nr; x++) {
     document.querySelector('#root').insertAdjacentHTML('beforeend','<div style="border-bottom-style: solid; padding: 20px 0px 20px 10px;border-width: thin;" onclick=divclick(this) data-library="'+library+'" data-bookid="'+ books[x].id +'">' +
     '<div>'+ books[x].title +'</div>' +
     '</div>'

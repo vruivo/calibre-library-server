@@ -62,6 +62,10 @@ app.param('library', function (req, res, next, library_name) {
 app.use('/', require('./frontend/routes'));
 app.use('/api/:library', books_routes);
 
+app.use('/api/version', function(req, res) {
+  res.send({ version: 0.7});
+});
+
 
 app.get('/api/libraries', function (req, res) {
   const libraries_names = available_libraries.map(library => library.name);
